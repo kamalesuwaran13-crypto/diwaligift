@@ -1,0 +1,1 @@
+import {json,sameOrigin} from './_shared.js';export async function onRequestPost({request}){if(!sameOrigin(request))return json({error:'Invalid origin'},403);return new Response(JSON.stringify({ok:true}),{headers:{'content-type':'application/json','cache-control':'no-store','set-cookie':'diwali_admin=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0'}});}
