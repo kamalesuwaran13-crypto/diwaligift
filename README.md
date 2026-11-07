@@ -1,32 +1,32 @@
-# Diwali Wishes — Cloudflare Pages + D1
-A personalised Diwali greeting site with gift creation, private share links and a password-protected admin dashboard.
+# Diwali Gift — Cloudflare Pages + D1
 
-## Cloudflare Pages deployment
-- Framework preset: **None**
-- Build command: leave blank
-- Build output directory: `. ` (enter `.`, without a space)
-- Root directory: repository root
-- Deploy using **Git integration** so the `functions/` directory is compiled as Pages Functions.
+A personalised Diwali greeting website with unique share links and a private admin dashboard showing who created each gift and whom it was sent to.
 
-## Required bindings and secrets
-In Pages > Settings > Functions:
-- D1 database binding variable: `DB` → select database `diwali-gifts`
+## Features
+- Free normal greeting gifts (no payment or money transfer).
+- Creator name, recipient name and custom message.
+- Unique shareable gift URL and WhatsApp sharing.
+- Festive reveal animation, diyas, stars and confetti.
+- Private admin dashboard with totals, search, gift details and delete.
+- Cloudflare D1 storage; Cloudflare Pages Functions API.
 
-In Pages > Settings > Variables and Secrets (Production):
-- Secret `ADMIN_PASSWORD`: your chosen admin password
-- Secret `ADMIN_SESSION_SECRET`: a separate random secret with at least 32 random bytes
-
-Redeploy after changing bindings or secrets.
-
-## Database
-The `schema.sql` file creates the `gifts` table and indexes. Run it once in the D1 console. The migration copy is in `migrations/0001_create_gifts.sql`.
+## Deploy to Cloudflare Pages
+1. Create a D1 database named `diwali-gifts`.
+2. In the D1 Console, run the SQL in `schema.sql`.
+3. In Cloudflare, open **Workers & Pages → Create → Pages → Connect to Git** and select this repository.
+4. Build settings: Framework **None**, build command blank, build output directory **public**.
+5. In Pages → Settings → Functions → D1 database bindings, bind variable **DB** to `diwali-gifts`.
+6. In Pages → Settings → Variables and Secrets, add:
+   - `ADMIN_PASSWORD`: a strong unique admin password.
+   - `ADMIN_SESSION_SECRET`: a random secret of at least 32 characters.
+7. Deploy. If you add bindings/secrets after the first deployment, redeploy.
 
 ## URLs
-- Home: `/`
-- Admin: `/admin.html`
-- Gift: `/gift.html?id=<gift-id>`
+- Website: `/`
+- Admin dashboard: `/admin.html`
+- Shared gift: `/?gift=GIFT_ID`
 
-The admin password is checked only by the server. Sessions use a signed, HttpOnly, Secure, SameSite=Strict cookie.
+## Privacy and security
+Only names and message explicitly entered by the gift creator are stored. The site does not collect phone numbers or identify visitors automatically. Admin records are protected by a signed, HttpOnly, Secure, SameSite=Strict session cookie. Never put secrets in frontend code or commit them to GitHub.
 
-## Notes
-The empty `assets/` folder is not required; the design is implemented in `styles.css`.
+This project creates greetings only. It does not collect or transfer money.

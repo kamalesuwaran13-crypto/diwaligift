@@ -1,1 +1,9 @@
-import {json,sameOrigin,signSession} from './_shared.js';export async function onRequestPost({request,env}){if(!sameOrigin(request))return json({error:'Invalid origin' },403);if(!env.ADMIN_PASSWORD||!env.ADMIN_SESSION_SECRET)return json({error:'Admin secrets are not configured.'},500);try{const {password}=await request.json();if(typeof password!=='string'||password!==env.ADMIN_PASSWORD)return json({error:'Incorrect password.'},401);const token=await signSession(env);return new Response(JSON.stringify({ok:true}),{headers:{'content-type':'application/json','cache-control':'no-store','set-cookie':'diwali_admin='+token+'; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=28800'}});}catch{return json({error:'Unable to sign in.'},400);}}
+import { createSession, json, sessionCookie } from "../../_lib/auth.js";
+export async function onRequestPost({ request, env }) {
+  if (!env.ADMIN_PASSWORD || !env.ADMIN_SESSION_SECRET) return json({ error: "Admin secrets are not configured in Cloudflare." }, 503);
+  let body;
+  try { body = await request.json(); } catch { return json({ error: "Invalid request." }, 400); }
+  if (typeof body.password !== "string" || body.password !== env.ADMIN_PASSWORD) return json({ error: "Incorrect password." }, 401);
+  const token = await createSession(env.ADMIN_SESSION_SECRET);
+  return json({ ok: true }, 200, { "set-cookie": sessionCookie(token) });
+}
