@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#160d2d"><meta name="description" content="Send a personalised Diwali greeting to someone special.">
+<title>Diwali Wishes — A Little Light for Someone Special</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="ambient"></div>
+<header class="topbar"><a class="brand" href="/"><span class="brand-mark">✦</span> Diwali Wishes</a><a class="quiet-link" href="#create">Create a wish</a></header>
+<main>
+<section class="hero">
+<div class="eyebrow"><span></span> THE FESTIVAL OF LIGHTS</div>
+<div class="diya" aria-hidden="true"><span>✦</span></div>
+<h1>Send a little <em>light</em><br>to someone special.</h1>
+<p class="hero-copy">A thoughtful message. A glowing moment. A Diwali wish they can keep and share.</p>
+<a class="button button-gold" href="#create">Create your Diwali wish <span>↗</span></a>
+<div class="hero-note">Made with warmth, shared with love</div>
+</section>
+<section class="create-section" id="create">
+<div class="section-heading"><div class="eyebrow">MAKE IT PERSONAL</div><h2>A wish from you, <em>to them.</em></h2><p>Write a message and we'll create a private link to share.</p></div>
+<form id="gift-form" class="gift-form">
+<label>Your name<input name="creator" maxlength="60" placeholder="e.g. Kamal" required></label>
+<label>Who is this for?<input name="recipient" maxlength="60" placeholder="e.g. My dear friend" required></label>
+<label>Your Diwali message<textarea name="message" maxlength="600" rows="4" placeholder="Wishing you a bright and beautiful Diwali..." required></textarea><small>Up to 600 characters</small></label>
+<button class="button button-gold full" type="submit">Create my wish <span>✦</span></button>
+<p id="form-status" class="form-status" role="status"></p>
+</form>
+<div id="share-result" class="share-result" hidden>
+<div class="success-icon">✓</div><h3>Your wish is ready!</h3><p>Copy this private link or share it on WhatsApp.</p>
+<div class="share-url"><input id="share-url" readonly aria-label="Your gift link"><button id="copy-link" class="button button-small">Copy</button></div>
+<a id="whatsapp-link" class="button button-outline full" target="_blank" rel="noopener">Share on WhatsApp ↗</a>
+</div>
+</section>
+</main>
+<footer><span>✦</span> A little light makes a big difference. <span>✦</span></footer>
+<script src="/app.js"></script>
+</body></html>
