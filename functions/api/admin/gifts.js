@@ -1,0 +1,1 @@
+import {json,validSession} from './_shared.js';export async function onRequestGet({request,env}){if(!await validSession(request,env))return json({error:'Not signed in'},401);const result=await env.DB.prepare('SELECT id,creator,recipient,message,created_at FROM gifts ORDER BY created_at DESC LIMIT 1000').all();return json({total:result.results.length,gifts:result.results});}
