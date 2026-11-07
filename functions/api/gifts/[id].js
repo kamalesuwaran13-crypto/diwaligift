@@ -1,0 +1,1 @@
+export async function onRequestGet({params,env}){const id=String(params.id||'');if(!/^[a-f0-9]{32}$/i.test(id))return Response.json({error:'Not found'},{status:404});const row=await env.DB.prepare('SELECT id,creator,recipient,message,created_at FROM gifts WHERE id=?').bind(id).first();if(!row)return Response.json({error:'Not found'},{status:404});return Response.json(row);}
