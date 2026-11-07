@@ -1,0 +1,1 @@
+import {json,validSession} from './_shared.js';export async function onRequestGet({request,env}){return validSession(request,env)?json({authenticated:true}):json({error:'Not signed in'},401);}
